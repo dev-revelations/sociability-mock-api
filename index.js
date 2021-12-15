@@ -1,8 +1,11 @@
+const argv = require('yargs').argv;
 const path = require('path')
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 const router = jsonServer.router(path.join(__dirname, 'db.json'))
 const middlewares = jsonServer.defaults()
+
+const port = argv.port || 8081;
 
 server.use(
   jsonServer.rewriter({
@@ -14,6 +17,6 @@ server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
 server.use(router)
-server.listen(3000, () => {
+server.listen(port, () => {
   console.log('JSON Server is running')
 })
